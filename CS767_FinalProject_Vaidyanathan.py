@@ -93,8 +93,8 @@ try:
     sns.boxplot(housing_data['price'])
     plt.tight_layout()
 
-    # Trend based on Year and months
-    
+    # Impact of month and year on price. Mean price is same and hence might remove it.
+
     f, axes = plt.subplots(1, 2,figsize=(15,5))
     sns.boxplot(x='year',y='price',data=housing_data, ax=axes[0])
     sns.boxplot(x='month',y='price',data=housing_data, ax=axes[1])
@@ -123,15 +123,6 @@ try:
     price_corr = housing_data.corr()['price'].sort_values(ascending=False)
     print(price_corr)
 
-    # Impact of month and year on price. Mean price is same and hence might remove it.
-
-    f, axes = plt.subplots(1, 2,figsize=(15,5))
-    sns.boxplot(x='year',y='price',data=housing_data, ax=axes[0])
-    sns.boxplot(x='month',y='price',data=housing_data, ax=axes[1])
-    sns.despine(left=True, bottom=True)
-    axes[0].set(xlabel='Year', ylabel='Price', title='Price by Year Box Plot')
-    axes[1].set(xlabel='Month', ylabel='Price', title='Price by Month Box Plot')
-    
     # Drop some features - ID and Zip code
    
     housing_data = housing_data.drop('id',axis=1)
@@ -150,7 +141,6 @@ try:
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
     X_val = scaler.transform(X_val)   
-    
 
     # Neural networks training model:
     reset_seeds() # Set the random seed to get consistent results between runs
